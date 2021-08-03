@@ -20,11 +20,12 @@ public class PagerService {
 	
 	public boolean addTeam(Team team) {
 		System.out.println(team.getName());
+		
+		
+		System.out.println(teamRepo.save(team));
 		team.getDevelopers().forEach(de -> {
 			developerRepo.save(de);
 		});
-		
-		System.out.println(teamRepo.save(team));
 		return true;
 	}
 	
@@ -44,7 +45,7 @@ public class PagerService {
 	public void sendSMS(Long id) {
 		Team team = teamRepo.findById(id).get();
 		List<Developer> developers = team.getDevelopers();
-		int randomNumber = (int) Math.random() * 10;
+		int randomNumber = (int) Math.random() * team.getDevelopers().size();
 		Developer developer = developers.get(randomNumber);
 		System.out.println("SMS Sent to phone " + developer);
 	}
